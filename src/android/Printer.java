@@ -76,21 +76,53 @@ public class Printer extends CordovaPlugin {
     
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("print")) {
-	    ((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).lock.acquire();
-	    try {
-		PWMControl.PrinterEnable(1);
+
+
+
 		try {
-			java.lang.Thread.sleep(200);
+			mSerialPrinter.OpenPrinter(new SerialParam(115200,"/dev/ttyS2",0),new SerialDataHandler());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		catch (Exception e) {
-		    e.printStackTrace();
-		}
-		((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).mSerialPrinter.printString("test");
-	    
-	    } finally{
-		((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).lock.release();
-		PWMControl.PrinterEnable(0);
-	    }
+
+	    PowerManager pm = (PowerManager)getApplicationContext().getSystemService(Context.POWER_SERVICE);
+	    lock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, TAG);
+		
+	    new WriteThread().start();
 	}
     }
+
+    private class WriteThread extends Thread {
+
+	public WriteThread() {
+	}
+
+
+	public void run() {
+	    super.run();
+	    lock.acquire();
+	    try {
+		PWMControl.PrinterEnable(1);
+		MainActivity.this.sleep(200);
+		    
+		try {
+		    mSerialPrinter.enlargeFontSize(1, 1);
+		    mSerialPrinter.printString("go\ndon't go");
+		    mSerialPrinter.walkPaper(100);
+		    MainActivity.this.sleep(5000);
+		    
+		} catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+		
+	    }finally{
+		lock.release();
+		PWMControl.PrinterEnable(0);
+	    }
+
+
+    }
+}
 }
