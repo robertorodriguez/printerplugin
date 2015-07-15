@@ -59,11 +59,11 @@ import java.util.concurrent.locks.*;
 import android.os.Message;
 
 
-SerialPrinter  mSerialPrinter=SerialPrinter.GetSerialPrinter();
+
 
 public class Printer extends CordovaPlugin {
 
-
+    SerialPrinter  mSerialPrinter=SerialPrinter.GetSerialPrinter();
 
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("print")) {
