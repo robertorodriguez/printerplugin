@@ -109,10 +109,10 @@ public class Printer extends CordovaPlugin {
                 	for(int x=0;x<data.size;x++)
 						sb.append(String.format("%02x", data.data[x]));
                 	if((data.data[0]&1)==1)
-                		Toast.makeText(Printer.this.cordova.getActivity().getApplicationContext(), getString(R.string.no_paper),
+                		Toast.makeText(Printer.this.cordova.getActivity().getApplicationContext(), getString("no paper"),
                 			     Toast.LENGTH_SHORT).show();
                 	if((data.data[0]&2)==2)
-                		Toast.makeText(Printer.this.cordova.getActivity().getApplicationContext(), getString(R.string.buff_fulled),
+                		Toast.makeText(Printer.this.cordova.getActivity().getApplicationContext(), getString("buffer fulled"),
                 			     Toast.LENGTH_SHORT).show();                	
             }
         }
