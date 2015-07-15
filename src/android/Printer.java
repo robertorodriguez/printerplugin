@@ -76,7 +76,7 @@ public class Printer extends CordovaPlugin {
     
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("print")) {
-	    this.cordova.getActivity().lock.acquire();
+	    ((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).lock.acquire();
 	    try {
 		PWMControl.PrinterEnable(1);
 		try {
@@ -85,10 +85,10 @@ public class Printer extends CordovaPlugin {
 		catch (Exception e) {
 		    e.printStackTrace();
 		}
-		this.cordova.getActivity().mSerialPrinter.printString("test");
+		((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).mSerialPrinter.printString("test");
 	    
 	    } finally{
-		this.cordova.getActivity().lock.release();
+		((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).lock.release();
 		PWMControl.PrinterEnable(0);
 	    }
 	}
