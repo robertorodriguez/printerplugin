@@ -49,7 +49,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
-
+import android.widget.Toast;
 
 import android.util.Log;
 import android.util.TimeUtils;
@@ -94,5 +94,24 @@ public class Printer extends CordovaPlugin {
         }
         return true;
     }
+
+    private class SerialDataHandler extends Handler{
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SerialPortOperaion.SERIAL_RECEIVED_DATA_MSG:
+                	SerialReadData data = (SerialReadData)msg.obj;
+                	StringBuilder sb=new StringBuilder();
+                	for(int x=0;x<data.size;x++)
+						sb.append(String.format("%02x", data.data[x]));
+                	Log.d(TAG,"data ="+sb);
+                	if((data.data[0]&1)==1)
+                		Toast.makeText(getApplicationContext(), getString(R.string.no_paper),
+                			     Toast.LENGTH_SHORT).show();
+                	if((data.data[0]&2)==2)
+                		Toast.makeText(getApplicationContext(), getString(R.string.buff_fulled),
+                			     Toast.LENGTH_SHORT).show();                	
+            }
+        }
+	}	
 
 }
