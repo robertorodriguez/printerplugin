@@ -69,6 +69,7 @@ import android.os.Message;
 public class Printer extends CordovaPlugin {
 
     SerialPrinter  mSerialPrinter=SerialPrinter.GetSerialPrinter();
+    WakeLock lock;
 
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("print")) {
