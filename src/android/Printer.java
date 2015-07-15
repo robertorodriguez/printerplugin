@@ -80,7 +80,7 @@ public class Printer extends CordovaPlugin {
 		    e1.printStackTrace();
 		}
 
-                PowerManager pm = (PowerManager)getApplicationContext().getSystemService(Context.POWER_SERVICE);
+                PowerManager pm = (PowerManager)this.cordova.getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
 	        lock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, TAG);
 		
 		lock.acquire();
