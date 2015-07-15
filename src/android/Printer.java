@@ -76,46 +76,21 @@ public class Printer extends CordovaPlugin {
     
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("print")) {
-
-                try {
-		    mSerialPrinter.OpenPrinter(new SerialParam(115200,"/dev/ttyS2",0),new SerialDataHandler());
-		} catch (Exception e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
+	    this.cordova.getActivity().lock.acquire();
+	    try {
+		PWMControl.PrinterEnable(1);
+		try {
+			java.lang.Thread.sleep(200);
 		}
-
-                PowerManager pm = (PowerManager)this.cordova.getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
-	        lock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, TAG);
-		
-		lock.acquire();
-                try {
-			PWMControl.PrinterEnable(1);
-			mSerialPrinter.printString(args.get(0).toString());
-
-		} finally{
-		    lock.release();
-		    PWMControl.PrinterEnable(0);
+		catch (Exception e) {
+		    e.printStackTrace();
 		}
-        }
-        return true;
+		this.cordova.getActivity().mSerialPrinter.printString("test");
+	    
+	    } finally{
+		this.cordova.getActivity().lock.release();
+		PWMControl.PrinterEnable(0);
+	    }
+	}
     }
-
-    private class SerialDataHandler extends Handler{
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SerialPortOperaion.SERIAL_RECEIVED_DATA_MSG:
-                	SerialReadData data = (SerialReadData)msg.obj;
-                	StringBuilder sb=new StringBuilder();
-                	for(int x=0;x<data.size;x++)
-						sb.append(String.format("%02x", data.data[x]));
-                	if((data.data[0]&1)==1)
-                		Toast.makeText(Printer.this.cordova.getActivity().getApplicationContext(), "no paper",
-                			     Toast.LENGTH_SHORT).show();
-                	if((data.data[0]&2)==2)
-                		Toast.makeText(Printer.this.cordova.getActivity().getApplicationContext(), "buffer fulled",
-                			     Toast.LENGTH_SHORT).show();                	
-            }
-        }
-	}	
-
 }
