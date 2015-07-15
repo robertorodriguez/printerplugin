@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    id="ar.com.nigdy.printer"
+    version="1.0.0">
+
+
+   <js-module src="www/printer.js" name="printer">
+    <clobbers target="Printer" />
+   </js-module>
+
+
+<!-- android -->
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Printer">
+        <param name="android-package" value="ar.com.nigdy.printer.Printer" />
+      </feature>
+    </config-file>
+    <source-file src="src/android/Printer.java" target-dir="src/ar/com/nigdy/printer" />
+    <source-file src="src/android/PWMControl.java" target-dir="src/hdx/pwm" />
+    <lib-file src="src/android/libs/armeabi/libpwmV2.so" />
+    <lib-file src="src/android/libs/armeabi/libserial_port.so" />
+    <source-file src="src/android/libs/serial.jar" target-dir="libs" />
+    <source-file src="src/android/libs/SerialPrinterLib.jar" target-dir="libs" />
+  </platform>
+
+
+
+
+
+</plugin>
