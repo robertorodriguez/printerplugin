@@ -39,6 +39,7 @@ import com.hdx.lib.serial.SerialParam;
 import com.hdx.lib.serial.SerialPortOperaion;
 import com.hdx.lib.serial.SerialPortOperaion.SerialReadData;
 
+import android.content.Context;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
