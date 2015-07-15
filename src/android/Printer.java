@@ -19,10 +19,15 @@
 package ar.com.nigdy.printer;
 
 
+import hdx.pwm.PWMControl;
+
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
+
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +38,6 @@ import com.hdx.lib.printer.*;
 import com.hdx.lib.serial.SerialParam;
 import com.hdx.lib.serial.SerialPortOperaion;
 import com.hdx.lib.serial.SerialPortOperaion.SerialReadData;
-
 
 import java.io.File;
 import java.io.FileDescriptor;
