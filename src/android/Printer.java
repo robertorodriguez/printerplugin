@@ -85,8 +85,8 @@ public class Printer extends CordovaPlugin {
 		lock.acquire();
                 try {
 			PWMControl.PrinterEnable(1);
-			mSerialPrinter.printString(args.get(0));
-			MainActivity.this.sleep(5000);
+			mSerialPrinter.printString(args.get(0).toString());
+
 		} finally{
 		    lock.release();
 		    PWMControl.PrinterEnable(0);
@@ -103,7 +103,6 @@ public class Printer extends CordovaPlugin {
                 	StringBuilder sb=new StringBuilder();
                 	for(int x=0;x<data.size;x++)
 						sb.append(String.format("%02x", data.data[x]));
-                	Log.d(TAG,"data ="+sb);
                 	if((data.data[0]&1)==1)
                 		Toast.makeText(getApplicationContext(), getString(R.string.no_paper),
                 			     Toast.LENGTH_SHORT).show();
