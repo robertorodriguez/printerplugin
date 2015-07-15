@@ -71,6 +71,9 @@ public class Printer extends CordovaPlugin {
     SerialPrinter  mSerialPrinter=SerialPrinter.GetSerialPrinter();
     WakeLock lock;
 
+    private static final String TAG = "Printer";
+
+    
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("print")) {
 
@@ -106,10 +109,10 @@ public class Printer extends CordovaPlugin {
                 	for(int x=0;x<data.size;x++)
 						sb.append(String.format("%02x", data.data[x]));
                 	if((data.data[0]&1)==1)
-                		Toast.makeText(getApplicationContext(), getString(R.string.no_paper),
+                		Toast.makeText(this.cordova.getActivity().getApplicationContext(), getString(R.string.no_paper),
                 			     Toast.LENGTH_SHORT).show();
                 	if((data.data[0]&2)==2)
-                		Toast.makeText(getApplicationContext(), getString(R.string.buff_fulled),
+                		Toast.makeText(this.cordova.getActivity().getApplicationContext(), getString(R.string.buff_fulled),
                 			     Toast.LENGTH_SHORT).show();                	
             }
         }
