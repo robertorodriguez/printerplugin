@@ -28,7 +28,7 @@ var argscheck = require('cordova/argscheck'),
 function Printer() {
 }
 
-Printer.prototype.text = function(text, successCallback, errorCallback) {
+Printer.prototype.print = function(text, successCallback, errorCallback) {
     exec(successCallback, errorCallback, "Printer", "print", [text]);
 };
 
