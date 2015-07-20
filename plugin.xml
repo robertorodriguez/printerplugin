@@ -24,6 +24,7 @@
     <lib-file src="src/android/libs/armeabi/libserial_port.so" />
     <source-file src="src/android/libs/serial.jar" target-dir="libs" />
     <source-file src="src/android/libs/SerialPrinterLib.jar" target-dir="libs" />
+    <source-file src="src/android/libs/core.jar" target-dir="libs" />
   </platform>
 
 
