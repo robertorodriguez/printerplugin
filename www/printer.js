@@ -38,7 +38,7 @@ Printer.prototype.printDouble = function(text, successCallback, errorCallback) {
     exec(successCallback, errorCallback, "Printer", "printDouble", [text]);
 };
 Printer.prototype.printTriple = function(text, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "Printer", "printDouble", [text]);
+    exec(successCallback, errorCallback, "Printer", "printTriple", [text]);
 };
 
 module.exports = new Printer();
