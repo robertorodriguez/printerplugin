@@ -74,7 +74,13 @@ public class Printer extends CordovaPlugin {
         if (action.equals("print")) {
 
             ((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).createWriteThread(args.get(0).toString());
-	    }
+	} else if (action.equals("printDouble")) {
+
+            ((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).createWriteDoubleThread(args.get(0).toString());
+	} else if (action.equals("printTriple")) {
+
+            ((io.cordova.hellocordova.MainActivity)this.cordova.getActivity()).createWriteTripleThread(args.get(0).toString());
+	}
 		return true;
     }
 

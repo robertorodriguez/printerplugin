@@ -34,5 +34,11 @@ Printer.prototype.print = function(text, successCallback, errorCallback) {
 Printer.prototype.printQR = function(text, successCallback, errorCallback) {
     exec(successCallback, errorCallback, "Printer", "printQR", [text]);
 };
+Printer.prototype.printDouble = function(text, successCallback, errorCallback) {
+    exec(successCallback, errorCallback, "Printer", "printDouble", [text]);
+};
+Printer.prototype.printTriple = function(text, successCallback, errorCallback) {
+    exec(successCallback, errorCallback, "Printer", "printDouble", [text]);
+};
 
 module.exports = new Printer();
